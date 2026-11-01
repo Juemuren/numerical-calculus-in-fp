@@ -1,19 +1,40 @@
 # 函数式编程中的数值微积分
 
-用 Haskell 的高阶函数探索数值微积分。核心计算使用 `Double`，仅依赖 `base`；可选的绘图模块使用 Gnuplot。
+用 Haskell 的高阶函数进行数值微积分。
+
+核心计算使用 `Double`，仅依赖 `base`；可选的绘图模块使用 Gnuplot。
 
 ## 快速开始
 
-安装 GHC 后，在项目目录运行：
+安装 GHC 后，在项目根目录运行
 
 ```sh
-runghc Main.hs
 runghc Main.hs gaussian
 ```
 
-不传参数会展示所有示例；传入函数名只运行对应示例。每个示例在指定区间输出五个采样点的函数值、导数和从区间左端开始的定积分。
+终端的输出为
 
-其余参数为
+```txt
+gaussian on [-3.00, 3.00]
++---------+------------+-------------+---------------+
+|       x |       f(x) |       f'(x) | integral(a,x) |
++---------+------------+-------------+---------------+
+| -3.0000 | 0.00012341 |  0.00074046 |    0.00000000 |
+| -1.5000 | 0.10539922 |  0.31619767 |    0.03001895 |
+|  0.0000 | 1.00000000 |  0.00000000 |    0.88620735 |
+|  1.5000 | 0.10539922 | -0.31619767 |    1.74239574 |
+|  3.0000 | 0.00012341 | -0.00074046 |    1.77241470 |
++---------+------------+-------------+---------------+
+Integral over interval: 1.7724146965
+```
+
+不传参数会展示所有示例。每个示例在指定区间输出五个采样点的函数值、导数和从区间左端开始的定积分
+
+```sh
+runghc Main.hs
+```
+
+`Main.hs` 的其余参数有：
 
 - `--help` 显示用法
 
@@ -27,7 +48,7 @@ runghc Main.hs gaussian
   runghc Main.hs --list
   ```
 
-### 用 cabal 运行
+### 用 Cabal 运行
 
 用 `cabal` 运行和用 `runghc` 的方式类似，只不过需要在 `--` 后添加参数
 
@@ -37,7 +58,7 @@ cabal run numerical-calculus -- --help
 cabal run numerical-calculus -- gaussian
 ```
 
-### 用 ghci 探索
+### 用 GHCi 探索
 
 首先启动 GHCi 会话
 
@@ -80,9 +101,9 @@ gaussian 0.5
 -- 0.7788007830714049
 ```
 
-提供的数值算法接口见 [#数值算法接口](#数值算法接口)，提供的预定义函数见 [#预定义函数](#预定义函数)
+提供的数值算法接口见 [#数值算法接口](#数值算法接口)，提供的预定义函数见 [#预定义函数](#预定义函数)。
 
-### 用 gnuplot 绘图
+### 用 Gnuplot 绘图
 
 绘图功能要求 `PATH` 中存在可用的 `gnuplot` 程序。`gnuplot` 程序的安装请参考 <http://www.gnuplot.info/download.html>。
 
@@ -103,14 +124,20 @@ cabal repl lib:numerical-calculus-in-fp -fplotting
 最后绘制函数并保存为 PNG 图片
 
 ```haskell
-plotFunction "gaussian.png" (-3) 3 gaussian
-plotFunction "gaussian-derivative.png" (-3) 3 (derivative gaussian)
-plotFunction "gaussian-integral.png" (-3) 3 (integralFromLower 0 gaussian)
+plotFunction "images/gaussian.png" (-3) 3 gaussian
+plotFunction "images/gaussian-derivative.png" (-3) 3 (derivative gaussian)
+plotFunction "images/gaussian-integral.png" (-3) 3 (integralFromLower 0 gaussian)
 ```
+
+保存的图片为
+
+| gaussian                         | gaussian-derivative                                    | gaussian-integral                                  |
+| -------------------------------- | ------------------------------------------------------ | -------------------------------------------------- |
+| ![gaussian](images/gaussian.png) | ![gaussian-derivative](images/gaussian-derivative.png) | ![gaussian-integral](images/gaussian-integral.png) |
 
 `plotFunction path xmin xmax f` 的参数分别为
 
-- `path`：要保存的 PNG 文件路径，相对于当前目录
+- `path`：要保存的 PNG 文件路径，相对于当前目录。如果保存在子目录中，则需要先创建子目录，否则会保存失败
 - `xmin`：绘制区间的左端点
 - `xmax`：绘制区间的右端点
 - `f`：要绘制的函数
