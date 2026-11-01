@@ -1,0 +1,29 @@
+cabal-version: 2.4
+name: numerical-calculus-in-fp
+version: 0.1.0.0
+synopsis: Small numerical calculus experiments in Haskell
+build-type: Simple
+
+flag plotting
+  description: Build the optional Gnuplot module (requires the gnuplot program at runtime)
+  default: False
+  manual: True
+
+library
+  exposed-modules: Derivative, Integrate, Functions
+  hs-source-dirs: .
+  build-depends: base >=4.14 && <5
+  default-language: Haskell2010
+  ghc-options: -Wall
+
+  if flag(plotting)
+    exposed-modules: Plot
+    build-depends: gnuplot >=0.5 && <0.6
+
+executable numerical-calculus
+  main-is: Main.hs
+  hs-source-dirs: .
+  other-modules: Derivative, Integrate, Functions, Table
+  build-depends: base >=4.14 && <5
+  default-language: Haskell2010
+  ghc-options: -Wall
