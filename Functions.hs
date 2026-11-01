@@ -15,7 +15,7 @@ cubic x = x * x * x - x
 gaussian :: Double -> Double
 gaussian x = exp (-(x * x))
 
--- A Taylor expansion avoids division by zero and loss of precision nearby.
+-- | A Taylor expansion avoids division by zero and loss of precision nearby.
 sinc :: Double -> Double
 sinc x
   | abs x < 1e-4 = 1 - x * x / 6 + x * x * x * x / 120
@@ -33,8 +33,8 @@ dampedSine x = gaussian x * sin (5 * x)
 runge :: Double -> Double
 runge x = 1 / (1 + 25 * x * x)
 
--- | A continuous function whose derivative at zero exists but is not
--- continuous there. Fixed-step methods struggle near the origin.
+-- | A continuous function whose derivative at zero exists but is not continuous there.
+-- Fixed-step methods struggle near the origin.
 oscillatory :: Double -> Double
 oscillatory x
   | x == 0 = 0

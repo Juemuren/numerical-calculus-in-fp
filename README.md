@@ -149,41 +149,54 @@ plotFunction "images/gaussian-integral.png" (-3) 3 (integralFromLower 0 gaussian
 提供的预定义函数有：
 
 - `cubic x`：三次多项式
-  $$
+
+  ```math
   f(x)=x^3-x
-  $$
+  ```
+
 - `gaussian x`：高斯函数
-  $$
+
+  ```math
   f(x)=e^{-x^2}
-  $$
+  ```
+
 - `sinc x`：原点处连续延拓的 sinc 函数
-  $$
+
+  ```math
   f(x)=
   \begin{cases}
     1 & x=0 \\
     \dfrac{\sin x}{x} & x\ne 0
   \end{cases}
-  $$
+  ```
+
 - `logistic x`：logistic 函数
-  $$
+
+  ```math
   f(x)=\frac{1}{1+e^{-x}}
-  $$
+  ```
+
 - `dampedSine x`：高斯包络下的正弦振荡
-  $$
+
+  ```math
   f(x)=e^{-x^2}\sin(5x)
-  $$
+  ```
+
 - `runge x`：runge 函数
-  $$
+
+  ```math
   f(x)=\frac{1}{1+25x^2}
-  $$
+  ```
+
 - `oscillatory x`：原点可导但导数在原点不连续的振荡函数
-  $$
+
+  ```math
   f(x)=
   \begin{cases}
     0 & x=0 \\
     x^2\sin(\frac{1}{x}) & x\ne 0
   \end{cases}
-  $$
+  ```
 
 ## 数值算法接口
 
@@ -191,34 +204,48 @@ plotFunction "images/gaussian-integral.png" (-3) 3 (integralFromLower 0 gaussian
 
 提供的数值算法接口有：
 
-- `derivative f x`: $f$ 在 $x$ 处的数值导数
-  $$
+- `derivative f x`：`f` 在 `x` 处的数值导数
+
+  ```math
   f'(x)
-  $$
-- `derivativeWithStep h f x`: 步长为 $h$ 的中心差分
-  $$
+  ```
+
+- `derivativeWithStep h f x`：步长为 `h` 的中心差分
+
+  ```math
   \frac{f(x+h)-f(x-h)}{2h}
-  $$
-- `integrate a b f`: 从 $a$ 到 $b$ 的定积分
-  $$
+  ```
+
+- `integrate a b f`：从 `a` 到 `b` 的定积分
+
+  ```math
   \int_a^b f(x) \mathrm{d}x
-  $$
-- `integrateWithSteps n a b f`: $n$ 个等长子区间的中点黎曼和
-  $$
+  ```
+
+- `integrateWithSteps n a b f`：`n` 个等长子区间的中点黎曼和
+
+  ```math
   \frac{b-a}{n}
   \sum_{i=0}^{n-1}
   f\left(a+\left(i+\frac12\right)\frac{b-a}{n}\right)
-  $$
-- `integralFromLower a f x`: 从固定下限 $a$ 到变上限 $x$ 的积分
-  $$
+  ```
+
+- `integralFromLower a f x`：从固定下限 `a` 到变上限 `x` 的积分
+
+  ```math
   \int_a^x f(t) \mathrm{d}t
-  $$
-- `integralToUpper b f x`: 从变下限 $x$ 到固定上限 $b$ 的积分
-  $$
+  ```
+
+- `integralToUpper b f x`：从变下限 `x` 到固定上限 `b` 的积分
+
+  ```math
   \int_x^b f(t) \mathrm{d}t
-  $$
-- `integralIndefinite f c x`: 从固定下限 $0$ 到变上限 $x$ 的积分再加上常数 $c$
-  $$
+  ```
+
+- `integralIndefinite f c x`：从固定下限 `0` 到变上限 `x` 的积分再加上常数 `c`
+
+  ```math
   \int_0^x f(t) \mathrm{d}t + c
-  $$
-- `integralDefinite a b f`: `integrate a b f` 的别名
+  ```
+
+- `integralDefinite a b f`：`integrate a b f` 的别名
